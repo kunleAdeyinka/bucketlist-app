@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, url_for, request, redirect, session, flash
+from flask import Flask, render_template, url_for, request, redirect, session, flash, g
 from flask.ext.sqlalchemy import SQLAlchemy
 from functools import wraps
 import sqlite3
@@ -68,8 +68,8 @@ def logout():
     return redirect(url_for('welcome'))
     
 
-#def connect_db():
-   # return sqlite3.connect(app.database)
+def connect_db():
+   return sqlite3.connect('posts.db')
 
 if __name__ == '__main__':
      app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)), debug=True)
