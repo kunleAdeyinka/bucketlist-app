@@ -4,10 +4,13 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from functools import wraps
 import sqlite3
 
-
+# create the application object
 app = Flask(__name__)
-app.secret_key = "tdfknfknfkneoerebeobrebrobdfnldnfadnfdfna;ndfkanfseren"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+
+# configurations
+import os
+app.config.from_object(os.environ['APP_SETTINGS'])
+print os.environ['APP_SETTINGS']
 
 # create the sqlachemy object
 db = SQLAlchemy(app)
@@ -72,4 +75,4 @@ def connect_db():
    return sqlite3.connect('posts.db')
 
 if __name__ == '__main__':
-     app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)), debug=True)
+     app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))
