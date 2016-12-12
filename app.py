@@ -10,7 +10,6 @@ app = Flask(__name__)
 # configurations
 import os
 app.config.from_object(os.environ['APP_SETTINGS'])
-print os.environ['APP_SETTINGS']
 
 # create the sqlachemy object
 db = SQLAlchemy(app)
@@ -32,18 +31,7 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-    posts = []
-    try:
-        # return "Hello, world" # return a string
-        g.db = connect_db()
-        cur = g.db.execute('select * from posts')
-        
-        for row in cur.fetchall():
-            posts.append(dict(title=row[0], description=row[1]))
-            
-        g.db.close()
-    except sqlite3.OperationalError:
-        flash("You have no database")
+    posts = db.session.query(BlogPost).all()
     return render_template("index.html", posts=posts)
 
 @app.route('/welcome')
@@ -70,9 +58,6 @@ def logout():
     flash('You are now logged out!')
     return redirect(url_for('welcome'))
     
-
-def connect_db():
-   return sqlite3.connect('posts.db')
 
 if __name__ == '__main__':
      app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))
