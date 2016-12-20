@@ -1,29 +1,18 @@
 ################################################################################
 #################### imports ###################################################
-
-from flask import Flask, render_template, url_for, request, redirect, session, flash, g
-from flask.ext.sqlalchemy import SQLAlchemy
-#from flask.ext.bcrypt import Bcrypt
+from project import app, db
+from project.models import BlogPost
+from flask import render_template, url_for, request, redirect, session, flash, g, Blueprint
 from functools import wraps
 import os
 
 
-
 ################################################################################
-#################### config  ###################################################
-
-
-app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
-db = SQLAlchemy(app)
-
-
-
-from models import *
-from project.users.views import users_blueprint
-
-# reqister the blueprints
-app.register_blueprint(users_blueprint)
+############################## config ##########################################
+home_blueprint = Blueprint(
+    'home', __name__,
+    template_folder='templates'
+)
 
 
 ################################################################################
@@ -45,18 +34,13 @@ def login_required(f):
 ################################################################################
 #################### routes ####################################################
 
-@app.route('/')
+@home_blueprint.route('/')
 @login_required
 def home():
     posts = db.session.query(BlogPost).all()
     return render_template("index.html", posts=posts)
 
-@app.route('/welcome')
+@home_blueprint.route('/welcome')
 def welcome():
     return render_template("welcome.html")
  
-
-    
-
-if __name__ == '__main__':
-     app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))
