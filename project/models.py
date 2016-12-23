@@ -52,5 +52,5 @@ class User(db.Model):
         return False
         
     def __repr__(self):
-        return '<name {}'.format(self.name)
+        return '<name - {}>'.format(self.name)
     
