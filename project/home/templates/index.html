@@ -1,43 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Welcome to the BucketList Application</h1>
-    <br>
-    <p>Click <a href="/logout">here</a> to go logout.</p>
-    <br><br>
-    <!-- post form -->
-    <h3>Add a Post!</h3>
-    <br>
-    <form class="form-message" role="form" method="post" action="/">
-      {{ form.csrf_token }}
-      <p>
-        {{ form.title(placeholder="title") }}
-        <span class="error">
-          {% if form.title.errors %}
-            {% for error in form.title.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
-      </p>
-      <p>
-      {{ form.description(placeholder="description") }}
-        <span class="error">
-          {% if form.description.errors %}
-            {% for error in form.description.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
-      </p>
-      <button class="btn btn-sm btn-success" type="submit">Post</button>
-    </form>
+    <div class="jumbotron">
+      <h1>welcome to mustdolistapp</h1>
+      <p class="lead">Here you can create a bucket list of things you want to do and also share it with other users and the world.</p>
+      <a class="btn btn-large btn-success" href="/register">Sign up today!</a>
+      <br/><br/>
+    </div>
     
-    <!-- All posts -->
-    <h3>Posts:</h3>
-    {% for post in posts %}
-        <strong>Title: </strong>{{ post.title }}<br>
-        <strong>Post: </strong>{{ post.description }}<br>
-        <strong>Author: </strong>{{ post.author.name }}<br>
-        <br>
-    {% endfor %}
+    <div class="row marketing">
+      <div class="col-md-4">
+        <h3>Bungee Jump</h3>
+         <p>I would love to do this sounds like soo much fun especially somewhere awesome like new zealand or off a huge bride into water!</p>
+      </div>
+      <div class="col-md-4">
+        <h3>Go skydiving</h3>
+        <p>I want to skydive for the adventure, experience and adrenaline.</p>
+      </div>
+      <div class="col-md-4">
+        <h3>Go On A Cruise</h3>
+        <p>I've never been on a cruise and now i'm retired I want to relax and enjoy the entertainment and visit lots of places. </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; Company 2016</p>
+    </div>
+   
 {% endblock %}

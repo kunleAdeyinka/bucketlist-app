@@ -19,7 +19,6 @@ home_blueprint = Blueprint(
 #################### routes ####################################################
 
 @home_blueprint.route('/', methods=['GET', 'POST'])
-@login_required
 def home():
     error = None
     form = MessageForm(request.form)
@@ -30,10 +29,11 @@ def home():
         flash('New post was successfully posted. Thanks.')
         return redirect(url_for('home.home'))
     else:
-        posts = db.session.query(BlogPost).all()
-        return render_template("index.html", posts=posts, form=form, error=error)
+        return render_template("index.html", form=form, error=error)
 
 @home_blueprint.route('/welcome')
+@login_required
 def welcome():
-    return render_template("welcome.html")
+    posts = db.session.query(BlogPost).all()
+    return render_template("welcome.html", posts=posts)
  

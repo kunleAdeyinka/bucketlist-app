@@ -8,3 +8,6 @@
 This is a simple bucket list application where users can register, sign in and create their bucket list. 
 We'll be using Flask, a Python web application framework, to create the application, with PostgresSQL as the back end.
 This is hosted on Heroku with Travis CI used for continous integration.
+
+# Tasks
+1. When the application loads up, first page should be a sign up page for the user.

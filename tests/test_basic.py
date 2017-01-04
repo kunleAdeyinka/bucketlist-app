@@ -14,15 +14,15 @@ class FlaskTestCase(BaseTestCase):
         response = self.client.get('/login', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
-    # Ensure that main page requires user login
-    def test_main_route_requires_login(self):
+    # Ensure that main page loads
+    def test_main_route_loads(self):
         response = self.client.get('/', follow_redirects=True)
-        self.assertIn(b'Please log in to access this page', response.data)
+        self.assertIn(b'welcome to mustdolistapp', response.data)
 
     # Ensure that welcome page loads
-    def test_welcome_route_works_as_expected(self):
-        response = self.client.get('/welcome', follow_redirects=True)
-        self.assertIn(b'Welcome to the BucketList Application', response.data)
+    def test_index_route_works_as_expected(self):
+        response = self.client.get('/', follow_redirects=True)
+        self.assertIn(b'welcome to mustdolistapp', response.data)
 
     # Ensure that posts show up on the main page
     def test_posts_show_up_on_main_page(self):
