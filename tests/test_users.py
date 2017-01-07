@@ -17,7 +17,7 @@ class TestUser(BaseTestCase):
     def test_user_registration(self):
         with self.client:
             response = self.client.post('/register', data=dict(username="Michael", email="michael@example.com", password="michael", confirm="michael"), follow_redirects=True)
-            self.assertIn(b'Welcome to the BucketList Application', response.data) 
+            self.assertIn(b'Welcome to the Mustdolist Application', response.data) 
             self.assertTrue(current_user.name=='Michael')
             self.assertTrue(current_user.is_active())
             user = User.query.filter_by(email='michael@example.com').first()
@@ -57,7 +57,7 @@ class UserViewsTests(BaseTestCase):
     # Ensure that the login page loads correctly
     def test_login_page_loads(self):
         response = self.client.get('/login')
-        self.assertIn(b'Please Login', response.data)
+        self.assertIn(b'Please sign in', response.data)
 
     # Ensure login behaves correctly with correct credentials
     def test_correct_login(self):

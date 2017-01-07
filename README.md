@@ -10,4 +10,6 @@ We'll be using Flask, a Python web application framework, to create the applicat
 This is hosted on Heroku with Travis CI used for continous integration.
 
 # Tasks
-1. When the application loads up, first page should be a sign up page for the user.
+1. When the application loads up, first page should be a the welcome page asking users to sign up.
+2. The user can follow links to sign up and log into the application.
+3. A user should be able to sign in and logout of the application.
