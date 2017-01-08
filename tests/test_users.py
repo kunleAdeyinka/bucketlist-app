@@ -84,6 +84,12 @@ class UserViewsTests(BaseTestCase):
     def test_logout_route_requires_login(self):
         response = self.client.get('/logout', follow_redirects=True)
         self.assertIn(b'Please log in to access this page', response.data)
+        
+    # Ensure that add item page requires user login
+    def test_additem_route_requires_login(self):
+        response = self.client.get('/addItem', follow_redirects=True)
+        self.assertIn(b'Please log in to access this page', response.data)
+    
 
         
 if __name__ == '__main__':

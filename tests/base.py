@@ -1,7 +1,7 @@
 from flask.ext.testing import TestCase
 
 from project import app, db
-from project.models import User, BlogPost
+from project.models import User, BucketItem
 
 
 class BaseTestCase(TestCase):
@@ -14,7 +14,7 @@ class BaseTestCase(TestCase):
     def setUp(self):
         db.create_all()
         db.session.add(User("admin", "admin@example.com", "admin"))
-        db.session.add(BlogPost("Test post", "This is a test. Only a test.", "admin"))
+        db.session.add(BucketItem("Test post", "This is a test. Only a test.", "admin"))
         db.session.commit()
 
     def tearDown(self):

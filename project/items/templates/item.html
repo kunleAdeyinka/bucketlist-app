@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+            <h1>Create Your BucketList Item </h1>
+            <form role="form" action="" method="post">
+                {{ form.csrf_token }}
+                <p>
+                    {{form.title(placeholder="title") }}<br>
+                    <span class="error">
+                        {% if form.title.errors %}
+                            {% for error in form.title.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        {% endif %}
+                    </span>
+                </p>
+                <p>
+                     {{form.post(placeholder="post") }} <br>
+                     <span class="error">
+                        {% if form.post.errors %}
+                            {% for error in form.post.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        {% endif %}
+                    </span>
+                </p>
+                <button class="btn btn-sm btn-success" type="submit">Publish </button>
+            </form>
+    </div>
+    <footer class="footer">
+        <p>&copy; Company 2016</p>
+    </footer>
+ {% endblock %}

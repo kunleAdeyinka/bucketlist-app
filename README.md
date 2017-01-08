@@ -13,3 +13,7 @@ This is hosted on Heroku with Travis CI used for continous integration.
 1. When the application loads up, first page should be a the welcome page asking users to sign up.
 2. The user can follow links to sign up and log into the application.
 3. A user should be able to sign in and logout of the application.
+4. A user signed in can click a link to add a bucket list item.
+5. A form is presented to enter a bucket list item.
+6. Once filled and submitted the user is returned to the welcome page showing the latest bucket list in the system.
+7. Each bucket list displayed has the title, description and the author of the item.

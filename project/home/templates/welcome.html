@@ -2,11 +2,11 @@
 {% block content %}
     <h1>Welcome to the Mustdolist Application</h1>
     <!-- All posts -->
-    <h3>Posts:</h3>
-    {% for post in posts %}
-        <strong>Title: </strong>{{ post.title }}<br>
-        <strong>Post: </strong>{{ post.description }}<br>
-        <strong>Author: </strong>{{ post.author.name }}<br>
+    <h3>Current BucketList Items</h3>
+    {% for bucketitem in bucketitems %}
+        <strong>Title: </strong>{{ bucketitem.title }}<br>
+        <strong>Post: </strong>{{ bucketitem.post }}<br>
+        <strong>Author: </strong>{{ bucketitem.author.name }}<br>
         <br>
     {% endfor %}
 {% endblock %}
