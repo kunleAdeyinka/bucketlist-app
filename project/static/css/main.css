@@ -42,3 +42,20 @@ p, div {
 .marketing p + h4 {
   margin-top: 28px;
 }
+
+.trash {
+  color: rgb(209, 91, 71);
+}
+.panel-body .checkbox {
+  display: inline-block;
+  margin: 0px;
+}
+.list-group {
+  margin-bottom: 0px;
+}
+.itemRow{
+  display:inline-block;
+}
+.item{
+  float:right;
+}

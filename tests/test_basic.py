@@ -27,7 +27,7 @@ class FlaskTestCase(BaseTestCase):
     # Ensure that posts show up on the main page
     def test_posts_show_up_on_main_page(self):
         response = self.client.post('/login', data=dict(username="admin", password="admin"),follow_redirects=True)
-        self.assertIn(b'This is a test. Only a test.', response.data)
+        self.assertIn(b'Test post', response.data)
 
 
 

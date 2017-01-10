@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h2> Are you sure you want to delete {{bucketitem.title}}? </h2>
+        <form role="form" action="" method="post">
+                {{ form.csrf_token }}
+                <button class="btn btn-sm btn-success" type="submit">Delete </button>
+        </form><br>
+        <a href = '{{url_for('home.welcome')}}'> Cancel </a>
+    </div>
+    <footer class="footer">
+        <p>&copy; Company 2016</p>
+    </footer>
+{% endblock %}

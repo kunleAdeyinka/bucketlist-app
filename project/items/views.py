@@ -38,4 +38,32 @@ def addItem():
         flash('New item was successfully posted. Thanks.')
         return redirect(url_for('home.welcome'))
     return render_template('item.html', form=form)
+
+
+@items_blueprint.route('/editItem/<int:bucketitem_id>/edit/', methods=['GET', 'POST'])
+@login_required
+def editItem(bucketitem_id):
+    editedItem = db.session.query(BucketItem).filter_by(id=bucketitem_id).one()
+    form = BucketItemForm(obj=editedItem)
+    if request.method == 'POST' and form.validate_on_submit():
+            form.populate_obj(editedItem)
+            db.session.commit()
+            return redirect(url_for('home.welcome'))
+    else:
+        return render_template('editItem.html', form=form, bucketitem=editedItem) 
+            
+            
+    
+    
+
+@items_blueprint.route('/deleteItem/<int:bucketitem_id>/delete/', methods=['GET', 'POST'])
+@login_required
+def deleteItem(bucketitem_id):
+    deletedBucketitem = db.session.query(BucketItem).filter_by(id = bucketitem_id).one()
+    form = BucketItemForm(obj=deletedBucketitem)
+    if request.method == 'POST':
+        db.session.delete(deletedBucketitem)
+        db.session.commit()
+        return redirect(url_for('home.welcome'))
+    return render_template('deleteItem.html', form = form, bucketitem=deletedBucketitem)
     

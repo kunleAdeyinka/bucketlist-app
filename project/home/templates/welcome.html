@@ -2,11 +2,25 @@
 {% block content %}
     <h1>Welcome to the Mustdolist Application</h1>
     <!-- All posts -->
-    <h3>Current BucketList Items</h3>
-    {% for bucketitem in bucketitems %}
-        <strong>Title: </strong>{{ bucketitem.title }}<br>
-        <strong>Post: </strong>{{ bucketitem.post }}<br>
-        <strong>Author: </strong>{{ bucketitem.author.name }}<br>
-        <br>
-    {% endfor %}
+    <ul class="list-group">
+        <li class="list-group-item active"><h4>Current BucketList Items</h4></li>
+         {% for bucketitem in bucketitems %}
+            <li class="list-group-item">
+    		   <span style="display:inline-block;font-size: 16px;"><p>{{bucketitem.title}}</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p><a href='{{url_for('items.editItem',bucketitem_id = bucketitem.id)}}' >Edit</a></p></span>
+    		   <span style="display:inline-block;font-size: 16px;"><p><a href='{{url_for('items.deleteItem',bucketitem_id = bucketitem.id)}}' >Delete</a></p></span>
+    		</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
