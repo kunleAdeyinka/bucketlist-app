@@ -89,6 +89,12 @@ class UserViewsTests(BaseTestCase):
     def test_additem_route_requires_login(self):
         response = self.client.get('/addItem', follow_redirects=True)
         self.assertIn(b'Please log in to access this page', response.data)
+        
+    # Ensure that pagination shows up after login
+    def test_pagination_shows(self):
+        with self.client:
+            response = self.client.post('/login', data=dict(username="admin", password="admin"), follow_redirects=True)
+            self.assertIn(b'Newer Items', response.data)
     
 
         

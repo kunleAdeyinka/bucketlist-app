@@ -18,3 +18,4 @@ This is hosted on Heroku with Travis CI used for continous integration.
 6. Once filled and submitted the user is returned to the welcome page showing the latest bucket list in the system.
 7. Each bucket list displayed has the title, description and the author of the item.
 8. Users will be able to edit and delete their bucketlist item.
+9. Added pagination to the welcome page since we are displaying all the bucket list items in the database

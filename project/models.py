@@ -46,6 +46,7 @@ class BucketItem(db.Model):
     title = db.Column(db.String, nullable=False)
     post = db.Column(db.String, nullable=False)
     author_id = db.Column(db.Integer, ForeignKey('users.id'))
+    timestamp = db.Column(db.DateTime)
     
     def __init__(self, title, post, author_id):
         self.title = title

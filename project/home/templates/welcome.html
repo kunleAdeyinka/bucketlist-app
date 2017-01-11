@@ -4,7 +4,7 @@
     <!-- All posts -->
     <ul class="list-group">
         <li class="list-group-item active"><h4>Current BucketList Items</h4></li>
-         {% for bucketitem in bucketitems %}
+         {% for bucketitem in bucketitems.items %}
             <li class="list-group-item">
     		   <span style="display:inline-block;font-size: 16px;"><p>{{bucketitem.title}}</p></span>
     		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
@@ -23,4 +23,30 @@
     		</li>
         {% endfor %}
     </ul>
+    <nav>
+        <ul class="pagination">
+            {% if bucketitems.has_prev %}
+            <li>
+                <a href="{{ url_for('home.welcome', page=bucketitems.prev_num) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>Newer Items
+                </a>
+            </li>
+            {% else %}
+            <li>
+                <span aria-hidden="true">&laquo; Newer Items</span>
+            </li>
+            {% endif %}
+            {% if bucketitems.has_next %}
+                <li>
+                    <a href="{{ url_for('home.welcome', page=bucketitems.next_num) }}" aria-label="Next">
+                        <span aria-hidden="true">Older Items &raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                   <li> 
+                       <span aria-hidden="true">Older Items &raquo;</span>
+                    </li>
+            {% endif %}| 
+        </ul>
+    </nav>
 {% endblock %}
