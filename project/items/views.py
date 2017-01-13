@@ -1,12 +1,14 @@
 ################################################################################
 ############################## imports #########################################
 ################################################################################
-
+import os
+import uuid
 from flask import flash, redirect, render_template, request, url_for, Blueprint, g
 from flask.ext.login import login_user, login_required, logout_user, current_user
 from form import BucketItemForm
-from project import db
+from project import db, UPLOAD_FOLDER
 from project.models import User, BucketItem
+from werkzeug.utils import secure_filename
 
 
 ################################################################################
@@ -32,7 +34,11 @@ def get_current_user():
 def addItem():
     form = BucketItemForm()
     if form.validate_on_submit():
-        bucket_item = BucketItem(title=form.title.data, post=form.post.data, author_id=g.user.id)
+        image_file = form.photo.data
+        filename = secure_filename(image_file.filename)
+        image_file.save(os.path.join(UPLOAD_FOLDER, filename))
+        unique_name = UPLOAD_FOLDER + '/' + filename
+        bucket_item = BucketItem(title=form.title.data, description=form.description.data, author_id=g.user.id, is_private=form.private.data, is_done=form.done.data, photo_path=unique_name)
         db.session.add(bucket_item)
         db.session.commit()
         flash('New item was successfully posted. Thanks.')
@@ -44,13 +50,21 @@ def addItem():
 @login_required
 def editItem(bucketitem_id):
     editedItem = db.session.query(BucketItem).filter_by(id=bucketitem_id).one()
+    staticFolder = editedItem.photo_path.find('static')
+    path = editedItem.photo_path[staticFolder:]
+    path = '/' + path
+    
     form = BucketItemForm(obj=editedItem)
-    if request.method == 'POST' and form.validate_on_submit():
-            form.populate_obj(editedItem)
-            db.session.commit()
-            return redirect(url_for('home.welcome'))
+    
+    if form.validate_on_submit():
+        print 'session commites5'
+        form.populate_obj(editedItem)
+        print form.data
+        db.session.commit()
+        print 'session commites'
+        return redirect(url_for('home.welcome'))
     else:
-        return render_template('editItem.html', form=form, bucketitem=editedItem) 
+        return render_template('editItem.html', form=form, bucketitem=editedItem, filePath=path) 
             
             
     

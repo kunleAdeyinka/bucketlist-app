@@ -44,14 +44,20 @@ class BucketItem(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
-    post = db.Column(db.String, nullable=False)
+    description = db.Column(db.String, nullable=False)
     author_id = db.Column(db.Integer, ForeignKey('users.id'))
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
+    photo_path = db.Column(db.String,nullable=True)
+    is_private = db.Column(db.Boolean, default=False)
+    is_done = db.Column(db.Boolean, default=False)
     
-    def __init__(self, title, post, author_id):
+    def __init__(self, title, description, author_id, is_private, is_done, photo_path):
         self.title = title
-        self.post = post
+        self.description = description
         self.author_id = author_id
+        self.is_private = is_private
+        self.is_done = is_done
+        self.photo_path = photo_path
         
     def __repr__(self):
         return '<title {}'.format(self.title)

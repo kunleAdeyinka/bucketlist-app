@@ -23,30 +23,31 @@
     		</li>
         {% endfor %}
     </ul>
-    <nav>
-        <ul class="pagination">
-            {% if bucketitems.has_prev %}
-            <li>
-                <a href="{{ url_for('home.welcome', page=bucketitems.prev_num) }}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>Newer Items
-                </a>
-            </li>
-            {% else %}
-            <li>
-                <span aria-hidden="true">&laquo; Newer Items</span>
-            </li>
-            {% endif %}
-            {% if bucketitems.has_next %}
+       <nav>
+            <ul class="pagination">
+                {% if bucketitems.has_prev %}
                 <li>
-                    <a href="{{ url_for('home.welcome', page=bucketitems.next_num) }}" aria-label="Next">
-                        <span aria-hidden="true">Older Items &raquo;</span>
+                    <a href="{{ url_for('home.welcome', page=bucketitems.prev_num) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>Newer Items
                     </a>
                 </li>
-            {% else %}
-                   <li> 
-                       <span aria-hidden="true">Older Items &raquo;</span>
+                {% else %}
+                <li>
+                    <span aria-hidden="true">&laquo; Newer Items</span>
+                </li>
+                {% endif %}
+                {% if bucketitems.has_next %}
+                    <li>
+                        <a href="{{ url_for('home.welcome', page=bucketitems.next_num) }}" aria-label="Next">
+                            <span aria-hidden="true">Older Items &raquo;</span>
+                        </a>
                     </li>
-            {% endif %}| 
-        </ul>
-    </nav>
+                {% else %}
+                       <li> 
+                           <span aria-hidden="true">Older Items &raquo;</span>
+                        </li>
+                {% endif %}
+            </ul>
+        </nav>	
+    
 {% endblock %}

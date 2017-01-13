@@ -28,7 +28,6 @@ def home():
 @home_blueprint.route('/welcome/<int:page>', methods=['GET', 'POST'])
 @login_required
 def welcome(page=1):
-    # db.session.query(BucketItem).paginate(page, POSTS_PER_PAGE, False)
     bucketitems = BucketItem.query.order_by(BucketItem.timestamp.desc()).paginate(page, POSTS_PER_PAGE, False)
     return render_template("welcome.html", bucketitems=bucketitems)
  

@@ -19,3 +19,6 @@ This is hosted on Heroku with Travis CI used for continous integration.
 7. Each bucket list displayed has the title, description and the author of the item.
 8. Users will be able to edit and delete their bucketlist item.
 9. Added pagination to the welcome page since we are displaying all the bucket list items in the database
+10. Added ability to upload an image for a bucket list item
+11. Added an option to mark a bucket list item as accomplished
+12. Added an option to make an item pubic or private

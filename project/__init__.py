@@ -23,6 +23,11 @@ db = SQLAlchemy(app)
 # pagination
 POSTS_PER_PAGE = 3
 
+# upload folder
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static/uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 from project.users.views import users_blueprint
 from project.home.views import home_blueprint

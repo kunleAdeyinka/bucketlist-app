@@ -2,32 +2,66 @@
 
 {% block content %}
     <div class="jumbotron">
-        <h2> {{bucketitem.title}}</h2>
+            <legend>{{bucketitem.title}} </legend>
             <form role="form" action="" method="post">
-                {{ form.csrf_token }}
-                <p>
-                    {{form.title(placeholder="title") }}<br>
-                    <span class="error">
-                        {% if form.title.errors %}
-                            {% for error in form.title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        {% endif %}
-                    </span>
-                </p>
-                <p>
-                     {{form.post(placeholder="post") }} <br>
-                     <span class="error">
-                        {% if form.post.errors %}
-                            {% for error in form.post.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        {% endif %}
-                    </span>
-                </p>
-                <button class="btn btn-sm btn-success" type="submit">Edit </button>
-            </form><br>
-        <a href = '{{url_for('home.welcome')}}'> Cancel </a>
+                    {{ form.csrf_token }}
+                    <div class="form-group row">
+                      <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
+                      
+                      <div class="col-sm-10">
+                        {{form.title(id="inputTitle", placeholder="title",class="form-control") }}
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputDescription" class="col-sm-2 col-form-label">Description</label>
+                      
+                      <div class="col-sm-10">
+                        {{form.description(id="inputDescription", placeholder="description",class="form-control") }}
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="browsebutton" class="col-sm-2 col-form-label">Uploaded Photo</label>
+                      
+                      <div class="col-sm-10">
+                        <div class="pull-right">
+                            <img id="imgUpload" style="width: 140px; height: 140px;" class="img-thumbnail" src="{{filePath }}">
+                            <input type="hidden" name="filePath" id="filePath"></input>
+                        </div>
+                        
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputprivate" class="col-sm-2">Mark as private</label>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                {{form.private(id="inputprivate") }}
+                              </label>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputaccomplished" class="col-sm-2">Mark as accomplished</label>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                {{form.done(id="inputaccomplished") }}
+                              </label>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="offset-sm-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="offset-sm-2 col-sm-10">
+                        <a href = '{{url_for('home.welcome')}}'> Return to Home Page </a>
+                      </div>
+                    </div>
+            </form>
+        
     </div>
     <footer class="footer">
         <p>&copy; Company 2016</p>
