@@ -14,7 +14,7 @@ class BaseTestCase(TestCase):
     def setUp(self):
         db.create_all()
         db.session.add(User("admin", "admin@example.com", "admin"))
-        db.session.add(BucketItem("Test post", "This is a test. Only a test.", "admin"))
+        db.session.add(BucketItem("Test post", "This is a test. Only a test.", "admin", False, False, None))
         db.session.commit()
 
     def tearDown(self):
