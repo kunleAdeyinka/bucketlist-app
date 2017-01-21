@@ -21,7 +21,7 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 
 # pagination
-POSTS_PER_PAGE = 3
+POSTS_PER_PAGE = 6
 
 # upload folder
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))

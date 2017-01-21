@@ -22,3 +22,5 @@ This is hosted on Heroku with Travis CI used for continous integration.
 10. Added ability to upload an image for a bucket list item
 11. Added an option to mark a bucket list item as accomplished
 12. Added an option to make an item pubic or private
+13. Add functionality to like a particular bucket item by adding a like button
+14. Add functionality to togggle the like/unlike display and show the total number of likes

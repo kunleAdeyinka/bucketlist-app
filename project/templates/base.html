@@ -5,9 +5,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="/static/css/main.css" rel="stylesheet" media="screen">
-        <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type=text/javascript>
+			$(document).on('click', '[id^="btn_"]', function() {
+                $.ajax({
+                    url: '/addUpdateLike',
+                    method: 'POST',
+                    data: {
+                        bucket_item: $(this).attr('id').split('_')[1],
+                        like: 1
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        var obj = JSON.parse(response);
+                        
+                        if(obj.total == "0"){
+                            $('#sp_' + obj.spId).html('&nbsp; ' + obj.total + ' like(s)');
+                        }else{
+                            $('#sp_' + obj.spId).html('&nbsp;You & ' + (Number(obj.total) - 1) + ' Others');
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+		</script>
+        
 
     </head>
     

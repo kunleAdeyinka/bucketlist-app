@@ -1,53 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Welcome to the Mustdolist Application</h1>
+    <h1>Current BucketList Items</h1>
     <!-- All posts -->
-    <ul class="list-group">
-        <li class="list-group-item active"><h4>Current BucketList Items</h4></li>
-         {% for bucketitem in bucketitems.items %}
-            <li class="list-group-item">
-    		   <span style="display:inline-block;font-size: 16px;"><p>{{bucketitem.title}}</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p><a href='{{url_for('items.editItem',bucketitem_id = bucketitem.id)}}' >Edit</a></p></span>
-    		   <span style="display:inline-block;font-size: 16px;"><p><a href='{{url_for('items.deleteItem',bucketitem_id = bucketitem.id)}}' >Delete</a></p></span>
-    		</li>
+    <div class="well">
+    <!-- pupulated dynamically with bucket items that are public for all users to like and view -->
+        {% for bucketitem_row in bucketitems.items | batch(3) %}
+        <div class="row">
+            {% for bucketitem in bucketitem_row %}
+            <div class="col-sm-4 col-md-4">
+                <div class="thumbnail"><img src='{{bucketitem.photo_path}}' data-holder-rendered="true" style="height: 150px; width: 150px; display: block">
+                    <div class="caption">
+                        <h5>{{bucketitem.title}}</h5>
+                       
+                            {% set placeholder_id = ["btn_", bucketitem.id ] %}
+                            {% set sp_id = ["sp_", bucketitem.id ] %}
+                        <p>
+                            {% for like in bucketitem.likes.all() %}
+                                <button id="{{ placeholder_id|join }}" type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
+                                <span id="{{sp_id|join}}"></span>
+                            {% endfor %}
+                            
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
         {% endfor %}
-    </ul>
-       <nav>
-            <ul class="pagination">
-                {% if bucketitems.has_prev %}
+    </div>
+    <nav>
+        <ul class="pagination">
+            {% if bucketitems.has_prev %}
+            <li>
+                <a href="{{ url_for('home.welcome', page=bucketitems.prev_num) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>Newer Items
+                </a>
+            </li>
+            {% else %}
+            <li>
+                <span aria-hidden="true">&laquo; Newer Items</span>
+            </li>
+            {% endif %}
+            {% if bucketitems.has_next %}
                 <li>
-                    <a href="{{ url_for('home.welcome', page=bucketitems.prev_num) }}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>Newer Items
+                    <a href="{{ url_for('home.welcome', page=bucketitems.next_num) }}" aria-label="Next">
+                        <span aria-hidden="true">Older Items &raquo;</span>
                     </a>
                 </li>
-                {% else %}
-                <li>
-                    <span aria-hidden="true">&laquo; Newer Items</span>
+            {% else %}
+               <li> 
+                   <span aria-hidden="true">Older Items &raquo;</span>
                 </li>
-                {% endif %}
-                {% if bucketitems.has_next %}
-                    <li>
-                        <a href="{{ url_for('home.welcome', page=bucketitems.next_num) }}" aria-label="Next">
-                            <span aria-hidden="true">Older Items &raquo;</span>
-                        </a>
-                    </li>
-                {% else %}
-                       <li> 
-                           <span aria-hidden="true">Older Items &raquo;</span>
-                        </li>
-                {% endif %}
-            </ul>
-        </nav>	
+            {% endif %}
+        </ul>
+    </nav>	
     
 {% endblock %}

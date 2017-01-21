@@ -7,7 +7,7 @@ from flask import flash, redirect, render_template, request, url_for, Blueprint,
 from flask.ext.login import login_user, login_required, logout_user, current_user
 from form import BucketItemForm
 from project import db, UPLOAD_FOLDER
-from project.models import User, BucketItem
+from project.models import User, BucketItem, Like
 from werkzeug.utils import secure_filename
 
 
@@ -38,8 +38,14 @@ def addItem():
         filename = secure_filename(image_file.filename)
         image_file.save(os.path.join(UPLOAD_FOLDER, filename))
         unique_name = UPLOAD_FOLDER + '/' + filename
-        bucket_item = BucketItem(title=form.title.data, description=form.description.data, author_id=g.user.id, is_private=form.private.data, is_done=form.done.data, photo_path=unique_name)
+        staticFolder = unique_name.find('static')
+        path = unique_name[staticFolder:]
+        path = '/' + path
+        bucket_item = BucketItem(title=form.title.data, description=form.description.data, author_id=g.user.id, is_private=form.private.data, is_done=form.done.data, photo_path=path)
         db.session.add(bucket_item)
+        db.session.flush()
+        like = Like( bucketitem_id=bucket_item.id, user_id=g.user.id, likes=0)
+        db.session.add(like)
         db.session.commit()
         flash('New item was successfully posted. Thanks.')
         return redirect(url_for('home.welcome'))
@@ -50,21 +56,15 @@ def addItem():
 @login_required
 def editItem(bucketitem_id):
     editedItem = db.session.query(BucketItem).filter_by(id=bucketitem_id).one()
-    staticFolder = editedItem.photo_path.find('static')
-    path = editedItem.photo_path[staticFolder:]
-    path = '/' + path
     
     form = BucketItemForm(obj=editedItem)
     
     if form.validate_on_submit():
-        print 'session commites5'
         form.populate_obj(editedItem)
-        print form.data
         db.session.commit()
-        print 'session commites'
         return redirect(url_for('home.welcome'))
     else:
-        return render_template('editItem.html', form=form, bucketitem=editedItem, filePath=path) 
+        return render_template('editItem.html', form=form, bucketitem=editedItem) 
             
             
     

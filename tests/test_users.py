@@ -17,7 +17,7 @@ class TestUser(BaseTestCase):
     def test_user_registration(self):
         with self.client:
             response = self.client.post('/register', data=dict(username="Michael", email="michael@example.com", password="michael", confirm="michael"), follow_redirects=True)
-            self.assertIn(b'Welcome to the Mustdolist Application', response.data) 
+            self.assertIn(b'Current BucketList Items', response.data) 
             self.assertTrue(current_user.name=='Michael')
             self.assertTrue(current_user.is_active())
             user = User.query.filter_by(email='michael@example.com').first()
